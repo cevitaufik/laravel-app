@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\PostsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,23 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home', [
-        "tittle" => "Home"
-    ]);
-});
-
-Route::get('/about', function () {
-    return view('about', [
-        "tittle" => "About",
-        "name" => "Laravel App",
-        "date" => "19 Oktober 2021",
-        "no" => 1,
-    ]);
-});
-
-Route::get('/posts', function () {
-    return view('posts', [
-        "tittle" => "Posts"
-    ]);
-});
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/about', [AboutController::class, 'index']);
+Route::get('/posts', [PostsController::class, 'index']);
+Route::get('posts/{id}', [PostsController::class, 'show']);
