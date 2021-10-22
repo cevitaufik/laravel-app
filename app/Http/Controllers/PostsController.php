@@ -14,7 +14,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return view('posts', [
+        return view('post/posts', [
             "tittle" => "Posts",
             "data" => Posts::all()
         ]);
@@ -49,7 +49,7 @@ class PostsController extends Controller
      */
     public function show(Posts $posts)
     {
-        return view('post', [
+        return view('post/post', [
             'tittle' => $posts->tittle,
             'data' => $posts
         ]);

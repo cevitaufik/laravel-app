@@ -1,0 +1,8 @@
+> merefresh database
+php artisan migrate:fresh
+
+> untuk menjalankan seeder
+php artisan db:seed
+
+> Refresh the database and run all database seeds
+php artisan migrate:refresh --seed

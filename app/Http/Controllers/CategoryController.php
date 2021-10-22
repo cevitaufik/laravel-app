@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('categories', [
+        return view('category/categories', [
             "tittle" => "Categories",
             'data' => Category::all(),
         ]);
@@ -49,7 +49,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return view('category', [
+        return view('category/category', [
             "tittle" => $category->name,
             "data" => $category->posts,
             "category" => $category->name

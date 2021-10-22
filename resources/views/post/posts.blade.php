@@ -9,7 +9,7 @@
   <div class="mb-3 my-hover">
     <a href="posts/{{ $item->id }}" class="text-decoration-none text-white">
       <h2>{{ $item["tittle"] }}</h2>
-      <h5>By : {{ $item["author"] }}</h5>
+      <h5>By : {{ $item->user->name }}</h5>
     </a>
     <hr>
   </div>
