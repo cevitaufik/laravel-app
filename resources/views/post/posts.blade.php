@@ -2,7 +2,7 @@
 @section('container')
 
 <div class="container my-bg-element text-white mt-5 rounded my-shadow p-3">
-  <h1>Halaman Blog</h1>
+  <h1 class="text-center">Halaman posts</h1>
   <br>
   @foreach ($data as $item)
 

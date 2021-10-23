@@ -2,7 +2,7 @@
 @section('container')
 
 <div class="container my-bg-element text-white mt-5 rounded my-shadow p-3">
-  <h1>Halaman User {{ $name }}</h1>
+  <h1 class="text-center">Halaman {{ $name }}</h1>
   <br>
   @if (count($data) === 0)
       <h2>Belum ada postingan</h2>

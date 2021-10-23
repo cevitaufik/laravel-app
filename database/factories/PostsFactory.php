@@ -22,7 +22,11 @@ class PostsFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "tittle"=>$this->faker->sentence(mt_rand(3, 6)),
+            "user_id" => mt_rand(1, 5),
+            "category_id"=> mt_rand(1, 3),
+            "article"=> $this->faker->paragraph(mt_rand(50, 100)),
+            "posted_at" => date("Y-m-d H:i:s")
         ];
     }
 }

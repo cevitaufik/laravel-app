@@ -16,7 +16,7 @@ class PostsController extends Controller
     {
         return view('post/posts', [
             "tittle" => "Posts",
-            "data" => Posts::all()
+            "data" => Posts::with('user')->get()
         ]);
     }
 
