@@ -14,5 +14,12 @@
   background-color: #46484d;
 }
 
+.post-hero-container-img {
+  height: 400px;
+}
+
+.post-hero-img {
+  max-width: 100%;
+}
 /* warna untuk background #121315 */
 /* untuk warna element #1b1c1e */

@@ -12,11 +12,11 @@
 
   @include('partials.navbar')
   
-  <div class="container">
+  <div class="container mb-5">
     @yield('container')
   </div>
 
-  <script src="js/script.js"></script>
-  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="/js/script.js"></script>
+  <script src="/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

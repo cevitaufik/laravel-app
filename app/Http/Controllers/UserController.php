@@ -39,10 +39,10 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        return view('user/user-post', [
+        return view('post/posts', [
             "tittle" => $user->name,
             "data" => $user->posts,
-            "name" => $user->name,
+            "header" => $user->name,
         ]);
     }
 }

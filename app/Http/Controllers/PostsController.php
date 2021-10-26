@@ -16,7 +16,11 @@ class PostsController extends Controller
     {
         return view('post/posts', [
             "tittle" => "Posts",
-            "data" => Posts::with('user')->get()
+            "header" => "Halaman posts",
+            "data" => Posts::with(['user', 'category'])
+                    ->latest()
+                    ->filter(request(['search', 'category']))
+                    ->get()
         ]);
     }
 
