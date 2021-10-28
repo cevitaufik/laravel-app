@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Posts;
 use Illuminate\Http\Request;
 
-class PostsController extends Controller
+class DashboardPostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,13 +14,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return view('post/posts', [
-            "tittle" => "Posts",
-            "header" => "Halaman posts",
-            "data" => Posts::with(['user', 'category'])
-                    ->latest()
-                    ->filter(request(['search', 'category']))
-                    ->get()
+        return view('dashboard.posts.index', [
+            'data' => Posts::where('user_id', auth()->user()->id)->get(),
         ]);
     }
 
@@ -53,8 +48,7 @@ class PostsController extends Controller
      */
     public function show(Posts $posts)
     {
-        return view('post/post', [
-            'tittle' => $posts->tittle,
+        return view('dashboard.posts.show', [
             'data' => $posts
         ]);
     }
@@ -92,9 +86,4 @@ class PostsController extends Controller
     {
         //
     }
-
-    // jika ingin mengganti default key, tambah function dibawah
-    // public function getRouteKeyName() {
-    //     return // tulis nama tabelnya disini
-    // }
 }

@@ -10,8 +10,6 @@
 </head>
 <body class="my-bg-main">
 
-  @include('partials.navbar')
-  
   <div class="container mb-5">
     @yield('container')
   </div>
