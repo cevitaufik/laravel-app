@@ -9,7 +9,7 @@
   @foreach ($data as $item)
 
   <div class="mb-3 my-hover">
-    <a href="/users/posts/{{ $item['id'] }}" class="text-decoration-none text-white">
+    <a href="/users/{{ $item['username'] }}/posts" class="text-decoration-none text-white">
       <h2>{{ $item['name'] }}</h2>
     </a>
     <p>Jumlah artikel : {{ $item['numberOfArticles'] }}</p>

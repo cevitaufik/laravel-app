@@ -27,6 +27,7 @@ class UserController extends Controller
             $tmp1 = [
                 "id" => $id,
                 "name" => $user->name,
+                "username" => $user->username,
                 "numberOfArticles" => count($tmp),                
             ];            
 

@@ -21,7 +21,7 @@
       <h2 class="text-center">Belum ada postingan</h2>
   @else       
     <div class="mb-3 my-hover container">
-      <a href="/posts/{{ $data[0]->id }}" class="text-decoration-none text-white">
+      <a href="/posts/{{ $data[0]->slug }}" class="text-decoration-none text-white">
         <div class="container overflow-hidden post post-hero-container-img position-relative">
           <img src="/img/{{ $data[0]->category->name . '.jpg'}}" alt="{{ $data[0][" tittle"] }}" class="post-hero-img">
           <div class="position-absolute bottom-0 block w-100 text-center pb-2">
@@ -38,7 +38,7 @@
       @foreach ($data as $key => $post)
       @if ($key > 0)  
         <div class="col">
-          <a href="/posts/{{ $post->id }}" class="text-decoration-none text-white">
+          <a href="/posts/{{ $post->slug }}" class="text-decoration-none text-white">
             <div class="card h-100">
               <img src="/img/{{ $post->category->name . '.jpg'}}" class="card-img-top" alt="{{ $post["tittle"] }}">
               <div class="card-body my-bg-element my-hover">

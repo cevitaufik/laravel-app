@@ -12,10 +12,10 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/about', [AboutController::class, 'index']);
 Route::get('/posts', [PostsController::class, 'index']);
 Route::get('/posts/categories', [CategoryController::class, 'index']);
-Route::get('/posts/{posts:id}', [PostsController::class, 'show']);
+Route::get('/posts/{posts:slug}', [PostsController::class, 'show']);
 Route::get('/posts/categories/{category:slug}', [CategoryController::class, 'show']);
 Route::get('/users', [UserController::class, 'index']);
-Route::get('/users/posts/{user:id}', [UserController::class, 'show']);
+Route::get('/users/{user:username}/posts', [UserController::class, 'show']);
 Route::get('/users/posts', function() {return redirect('/users');});
 
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
@@ -31,7 +31,12 @@ Route::get('/dashboard', function () {
 })->middleware('auth');
 
 Route::get('/dashboard/posts', [DashboardPostController::class, 'index'])->middleware('auth');
-Route::get('/dashboard/posts/{posts:id}', [DashboardPostController::class, 'show'])->middleware('auth');
+Route::get('/dashboard/posts/create', [DashboardPostController::class, 'createForm'])->middleware('auth');
+Route::post('/dashboard/posts/create', [DashboardPostController::class, 'create'])->middleware('auth');
+Route::get('/dashboard/posts/delete/{posts:slug}', [DashboardPostController::class, 'destroy'])->middleware('auth');
+Route::get('/dashboard/posts/checkSlug', [DashboardPostController::class, 'checkSlug'])->middleware('auth');
+Route::get('/dashboard/posts/{posts:slug}', [DashboardPostController::class, 'show'])->middleware('auth');
+
 
 // Route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth');
 

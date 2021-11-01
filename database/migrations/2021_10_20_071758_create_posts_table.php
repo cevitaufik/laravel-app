@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Validation\Rules\Unique;
 
 class CreatePostsTable extends Migration
 {
@@ -18,6 +19,7 @@ class CreatePostsTable extends Migration
             $table->foreignId('category_id');
             $table->foreignId('user_id');
             $table->string('tittle');
+            $table->string('slug')->unique();
             $table->timestamp('posted_at')->nullable();
             $table->text('article');
             $table->timestamps();

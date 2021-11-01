@@ -11,7 +11,7 @@
 
   <h6>{{ $data->created_at }}</h6>
   <hr>
-  <p>{{ $data['article'] }}</p>
+  <p>{!! $data['article'] !!}</p>
 </div>
    
 @endsection

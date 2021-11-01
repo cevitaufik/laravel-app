@@ -2,7 +2,7 @@
 @section('container')
 
 <h1 class="mb-5 mt-3">Selamat datang {{ auth()->user()->name }}</h1>
-
+<a href="/dashboard/posts/create" class="btn btn-primary mb-3">Create new post</a>
 <div class="table-responsive">
   <table class="table table-striped table-sm">
     <thead>
@@ -23,9 +23,9 @@
         <td>{{ $item->updated_at }}</td>
         <td>
 
-          <a href="/dashboard/posts/{{ $item->id }}">detail</a> |
+          <a href="/dashboard/posts/{{ $item->slug }}">detail</a> |
           <a href="">edit</a> |
-          <a href="">delete</a>|
+          <a href="/dashboard/posts/delete/{{ $item->slug }}">delete</a>
 
         </td>
       </tr>                
