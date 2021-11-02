@@ -2,8 +2,17 @@
 @section('container')
 
 <h1 class="mb-5 mt-3">Selamat datang {{ auth()->user()->name }}</h1>
+
+@if (session()->has('success'))    
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <p class="m-0 p-0">{{ session('success') }}</p>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+
 <a href="/dashboard/posts/create" class="btn btn-primary mb-3">Create new post</a>
-<div class="table-responsive">
+<div class="table-responsive mb-5">
   <table class="table table-striped table-sm">
     <thead>
       <tr>
@@ -23,9 +32,14 @@
         <td>{{ $item->updated_at }}</td>
         <td>
 
-          <a href="/dashboard/posts/{{ $item->slug }}">detail</a> |
-          <a href="">edit</a> |
-          <a href="/dashboard/posts/delete/{{ $item->slug }}">delete</a>
+          <a href="/dashboard/posts/{{ $item->slug }}" class="badge bg-success text-decoration-none">detail</a> |
+          <a href="/dashboard/posts/{{ $item->slug }}/edit" class="border-0 badge bg-warning">edit</a> |
+
+          <form action="/dashboard/posts/{{ $item->slug }}" method="post" class="d-inline">
+            @csrf
+            @method('delete')
+            <button type="submit" class="border-0 badge bg-danger" onclick="return confirm('Apakah anda yakin?')">delete</button>
+          </form>
 
         </td>
       </tr>                

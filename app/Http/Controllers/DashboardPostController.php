@@ -34,14 +34,18 @@ class DashboardPostController extends Controller
      */
     public function create(Request $request)
     {
-        Posts::create([
-            'category_id' => $request->category_id,
-            'user_id' => $request->user_id,
-            'tittle' => $request->tittle,
-            'posted_at' => date("Y-m-d H:i:s"),
-            'article' => $request->article
+        $validatedData = $request->validate([
+            'category_id' => ['required'],
+            'slug' => ['required', 'unique:posts'],
+            'tittle' => ['required', 'max:255'],
+            'article' => ['required']
         ]);
-        return redirect('/dashboard/posts');
+
+        $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['posted_at'] = date("Y-m-d H:i:s");
+
+        Posts::create($validatedData);
+        return redirect('/dashboard/posts')->with('success', 'Post berhasil dibuat');
     }
 
     /**
@@ -76,7 +80,10 @@ class DashboardPostController extends Controller
      */
     public function edit(Posts $posts)
     {
-        //
+        return view('dashboard.posts.edit', [
+            'categories' => Category::all(),
+            'post' => $posts
+        ]);
     }
 
     /**
@@ -88,7 +95,21 @@ class DashboardPostController extends Controller
      */
     public function update(Request $request, Posts $posts)
     {
-        //
+        $rules = [
+            'category_id' => ['required'],            
+            'tittle' => ['required', 'max:255'],
+            'article' => ['required']
+        ];
+
+        if($request->slug != $posts->slug) {
+            $rules['slug'] = ['required', 'unique:posts'];
+        }
+
+        $validatedData = $request->validate($rules);
+        $validatedData['user_id'] = auth()->user()->id;
+        Posts::where('id', $posts->id)->update($validatedData);
+
+        return redirect('/dashboard/posts')->with('success', 'Post berhasil diperbarui');
     }
 
     /**
@@ -98,7 +119,8 @@ class DashboardPostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Posts $posts) {
-        //
+        Posts::destroy($posts->id);
+        return redirect('/dashboard/posts')->with('success', 'Post berhasil dihapus');
     }
 
     public function checkSlug(Request $request) {

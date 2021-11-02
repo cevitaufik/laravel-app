@@ -19,7 +19,7 @@
 
   @if (count($data) == 0)
       <h2 class="text-center">Belum ada postingan</h2>
-  @else       
+  @else
     <div class="mb-3 my-hover container">
       <a href="/posts/{{ $data[0]->slug }}" class="text-decoration-none text-white">
         <div class="container overflow-hidden post post-hero-container-img position-relative">

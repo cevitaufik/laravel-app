@@ -11,6 +11,7 @@ class Posts extends Model
     use HasFactory, Sluggable;
 
     protected $guarded = ['id'];
+    protected $with = ['user', 'category'];
 
     public function scopeFilter($query, array $filters) {
         

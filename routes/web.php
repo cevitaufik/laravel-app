@@ -33,11 +33,8 @@ Route::get('/dashboard', function () {
 Route::get('/dashboard/posts', [DashboardPostController::class, 'index'])->middleware('auth');
 Route::get('/dashboard/posts/create', [DashboardPostController::class, 'createForm'])->middleware('auth');
 Route::post('/dashboard/posts/create', [DashboardPostController::class, 'create'])->middleware('auth');
-Route::get('/dashboard/posts/delete/{posts:slug}', [DashboardPostController::class, 'destroy'])->middleware('auth');
 Route::get('/dashboard/posts/checkSlug', [DashboardPostController::class, 'checkSlug'])->middleware('auth');
 Route::get('/dashboard/posts/{posts:slug}', [DashboardPostController::class, 'show'])->middleware('auth');
-
-
-// Route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth');
-
-
+Route::delete('/dashboard/posts/{posts:slug}', [DashboardPostController::class, 'destroy'])->middleware('auth');
+Route::get('/dashboard/posts/{posts:slug}/edit', [DashboardPostController::class, 'edit'])->middleware('auth');
+Route::put('/dashboard/posts/{posts:slug}/edit', [DashboardPostController::class, 'update'])->middleware('auth');

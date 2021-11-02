@@ -52,7 +52,7 @@ class CategoryController extends Controller
         return view('post/posts', [
             "tittle" => $category->name,
             "header" => $category->name,
-            "data" => $category->posts,            
+            "data" => $category->posts->reverse()
         ]);
     }
 
