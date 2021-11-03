@@ -4,7 +4,7 @@
 <h1 class="mb-5 mt-3">Create new post</h1>
 
 <div class="col-lg-8 mb-5">
-  <form action="/dashboard/posts/create" method="POST">
+  <form action="/dashboard/posts/create" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="mb-3">
       <label for="tittle" class="form-label">Title</label>
@@ -19,9 +19,9 @@
       <label for="slug" class="form-label">Slug</label>
       <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" value="{{ old('slug') }}" required>
       @error('slug')
-          <div class="invalid-feedback">
-            {{ $message }}
-          </div>
+        <div class="invalid-feedback">
+          {{ $message }}
+        </div>
       @enderror
     </div>
     <div class="mb-3">
@@ -35,6 +35,16 @@
           @endif
         @endforeach
       </select>
+    </div>
+    <div class="mb-3">
+      <label for="image" class="form-label">Post image</label>
+      <img class="img-preview img-fluid mb-3 col-sm-5">
+      <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image" onchange="previewImage()">
+      @error('image')
+        <div class="invalid-feedback">
+          {{ $message }}
+        </div>
+      @enderror
     </div>
     <div class="mb-3">
       <label for="article" class="form-label">Article</label>
@@ -57,6 +67,20 @@
       .then(response => response.json())
       .then(data => slug.value = data.slug)
   });
+
+  function previewImage() {
+    const image = document.querySelector('#image');
+    const imgPreview = document.querySelector('.img-preview');
+
+    imgPreview.style.display = 'block';
+
+    const oFReader = new FileReader();
+    oFReader.readAsDataURL(image.files[0]);
+
+    oFReader.onload = function(oFREvent) {
+      imgPreview.src = oFREvent.target.result;
+    }
+  }
 </script>
 
 @endsection

@@ -23,7 +23,11 @@
     <div class="mb-3 my-hover container">
       <a href="/posts/{{ $data[0]->slug }}" class="text-decoration-none text-white">
         <div class="container overflow-hidden post post-hero-container-img position-relative">
-          <img src="/img/{{ $data[0]->category->name . '.jpg'}}" alt="{{ $data[0][" tittle"] }}" class="post-hero-img">
+          @if ($data[0]->image)
+            <img src="{{ asset('storage/'.$data[0]->image) }}" alt="{{ $data[0]->category->name }}" class="post-hero-img">
+          @else
+            <img src="/img/{{ $data[0]->category->name . '.jpg'}}" alt="{{ $data[0]->category->name }}" class="post-hero-img">
+          @endif
           <div class="position-absolute bottom-0 block w-100 text-center pb-2">
             <h2>{{ $data[0]["tittle"] }}</h2>
             <h5>Category : {{ $data[0]->category->name }}</h5>
@@ -40,7 +44,11 @@
         <div class="col">
           <a href="/posts/{{ $post->slug }}" class="text-decoration-none text-white">
             <div class="card h-100">
-              <img src="/img/{{ $post->category->name . '.jpg'}}" class="card-img-top" alt="{{ $post["tittle"] }}">
+              @if ($post->image)
+                <img src="{{ asset('storage/'.$post->image) }}" alt="{{ $post->category->name }}" class="post-hero-img">
+              @else
+                <img src="/img/{{ $post->category->name . '.jpg'}}" alt="{{ $post->category->name }}" class="post-hero-img">
+              @endif
               <div class="card-body my-bg-element my-hover">
                 <h5 class="card-title">{{ $post["tittle"] }}</h5>
                 <p class="card-text">Category : {{ $post->category->name }} </p>

@@ -3,7 +3,11 @@
 
 <div class="container my-bg-element text-white mt-5 rounded my-shadow p-3">
   <div class="container overflow-hidden post post-hero-container-img position-relative mb-2">
-    <img src="/img/{{ $data->category->name . '.jpg'}}" alt="{{ $data->category->name }}" class="post-hero-img">
+    @if ($data->image)
+      <img src="{{ asset('storage/'.$data->image) }}" alt="{{ $data->category->name }}" class="post-hero-img">
+    @else
+      <img src="/img/{{ $data->category->name . '.jpg'}}" alt="{{ $data->category->name }}" class="post-hero-img">
+    @endif
   </div>
   <h1>{{ $data['tittle'] }}</h1>
   <h4><a href="/users/posts/{{ $data->user->id }}" class="text-decoration-none text-white">By: {{ $data->user->name

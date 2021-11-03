@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Posts;
 use App\Models\Category;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
@@ -38,8 +39,14 @@ class DashboardPostController extends Controller
             'category_id' => ['required'],
             'slug' => ['required', 'unique:posts'],
             'tittle' => ['required', 'max:255'],
-            'article' => ['required']
+            'article' => ['required'],
+            'image' => ['image']
         ]);
+        
+        if($request->file('image')) {
+            $fileName = $request['slug'] . '-' . date('Y-m-d His') . '.' . $request->file('image')->extension();
+            $validatedData['image'] = $request->file('image')->storeAs('post-images', $fileName);
+        }
 
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['posted_at'] = date("Y-m-d H:i:s");
@@ -98,7 +105,8 @@ class DashboardPostController extends Controller
         $rules = [
             'category_id' => ['required'],            
             'tittle' => ['required', 'max:255'],
-            'article' => ['required']
+            'article' => ['required'],
+            'image' => ['image']
         ];
 
         if($request->slug != $posts->slug) {
@@ -107,6 +115,15 @@ class DashboardPostController extends Controller
 
         $validatedData = $request->validate($rules);
         $validatedData['user_id'] = auth()->user()->id;
+        
+        if($request->file('image')) {
+            if($request->oldImage) {
+                Storage::delete($request->oldImage);
+            }
+            $fileName = $request['slug'] . '-' . date('Y-m-d His') . '.' . $request->file('image')->extension();
+            $validatedData['image'] = $request->file('image')->storeAs('post-images', $fileName);            
+        }
+
         Posts::where('id', $posts->id)->update($validatedData);
 
         return redirect('/dashboard/posts')->with('success', 'Post berhasil diperbarui');
@@ -119,6 +136,9 @@ class DashboardPostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Posts $posts) {
+        if($posts->image) {
+            Storage::delete($posts->image);
+        }
         Posts::destroy($posts->id);
         return redirect('/dashboard/posts')->with('success', 'Post berhasil dihapus');
     }

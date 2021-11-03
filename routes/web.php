@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardPostController;
@@ -38,3 +39,6 @@ Route::get('/dashboard/posts/{posts:slug}', [DashboardPostController::class, 'sh
 Route::delete('/dashboard/posts/{posts:slug}', [DashboardPostController::class, 'destroy'])->middleware('auth');
 Route::get('/dashboard/posts/{posts:slug}/edit', [DashboardPostController::class, 'edit'])->middleware('auth');
 Route::put('/dashboard/posts/{posts:slug}/edit', [DashboardPostController::class, 'update'])->middleware('auth');
+
+Route::get('/dashboard/categories/checkSlug', [AdminCategoryController::class, 'checkSlug'])->middleware('auth');
+Route::resource('/dashboard/categories', AdminCategoryController::class)->except('show')->middleware('IsAdmin');
